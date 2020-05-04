@@ -13,11 +13,12 @@
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
     "clean": "rimraf lib dist es coverage",
     "lint": "eslint src test",
-    "prepublish": "npm run clean && npm run build",
+    "prepublish": "yarn run snyk-protect && npm run clean && npm run build",
     "test": "cross-env BABEL_ENV=commonjs NODE_ENV=test mocha --compilers js:babel-register --recursive --require ./test/setup.js",
     "test:watch": "npm test -- --watch",
     "test:cov": "cross-env NODE_ENV=test nyc npm test",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "snyk-protect": "snyk protect"
   },
   "repository": {
     "type": "git",
@@ -100,7 +101,8 @@
     "invariant": "^2.0.0",
     "lodash": "^4.2.0",
     "lodash-es": "^4.2.0",
-    "loose-envify": "^1.1.0"
+    "loose-envify": "^1.1.0",
+    "snyk": "^1.317.0"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
@@ -114,5 +116,6 @@
   "nyc": {
     "sourceMap": false,
     "instrument": false
-  }
+  },
+  "snyk": true
 }
